@@ -1,0 +1,10 @@
+version: "3.3"
+services:
+  postgres:
+    image: postgres
+    container_name: "mygpt-db"
+    environment:
+      POSTGRES_DB: ${PG_MIGRATION_DB}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+    ports:
+      - ${PG_PORT}:5432
