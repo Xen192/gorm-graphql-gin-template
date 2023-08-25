@@ -43,14 +43,7 @@ func (s *fileUploadService) Put(c context.Context, file_name string, file_parent
 		return "", err
 	}
 
-	// NOTE: temporary for permanent link
-	exp := time.Now().Add(time.Hour * 999999).Unix()
-	encTxt, err := encrypt.Encrypt(fmt.Sprintf("%s@%d", file_id, exp))
-	if err != nil {
-		logrus.Error(err)
-		return "", errors.New("Encryption Failed")
-	}
-	return encTxt, nil
+	return file_id, nil
 }
 
 func (s *fileUploadService) GenerateURL(c context.Context, file_id string, file_parent string) (string, error) {

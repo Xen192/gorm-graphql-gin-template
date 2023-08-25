@@ -6,6 +6,7 @@ import (
 	"mygpt/pkg/infrastructure/graphql"
 	"mygpt/pkg/infrastructure/router"
 	"mygpt/pkg/utils"
+	"mygpt/query"
 	"os"
 	"time"
 
@@ -19,7 +20,10 @@ func init() {
 	if err != nil {
 		logrus.Warn("Failed To Load ENV: ", err)
 	}
-	_ = datastore.GetInstance()
+
+	db := datastore.GetInstance()
+	query.SetDefault(db)
+
 	loc, err := time.LoadLocation("Asia/Kathmandu")
 	if err != nil {
 		logrus.Fatal(err)

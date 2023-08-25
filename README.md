@@ -26,9 +26,8 @@ make
 ```
 ---
 ## Generating Schema
-```
-make gen-graph
-```
+**`make gen-graph`** generates the resolvers and objects from graphql schemma
+
 ---
 ## Migration
 **`db/migration/db-schema.sql` represents the final db state schema, thus it represents the state that the app db is expected to be in.**
@@ -39,6 +38,7 @@ make gen-graph
 * `make migrate-dry`, to test the eligibility of the migration and if a plan can be formulated.
 * `make migrate-apply`, to apply the prepared migrations.
 * `make migrate`, to generate and apply the migrations at once.
+* `make gen-model`  generates the gorm object from the migrated database
 
 # Playground
 

@@ -47,16 +47,8 @@ func (c *FileUploadController) Put(g *gin.Context) {
 		g.String(http.StatusInternalServerError, fmt.Sprintf("Error: %s", err.Error()))
 		return
 	}
-	scheme := "http"
-	if g.Request.Header.Get("X-Forwarded-Proto") == "https" || g.Request.TLS != nil {
-		scheme = "https"
-	}
-	host := g.Request.Host
-	if h := g.Request.Header.Get("X-Forwarded-Host"); h != "" {
-		host = h
-	}
 
-	g.String(http.StatusOK, scheme+"://"+host+g.Request.URL.Path[:strings.LastIndex(g.Request.URL.Path, "/")]+"/"+fileId)
+	g.String(http.StatusOK, fileId)
 }
 
 func (c *FileUploadController) GenerateURL(g *gin.Context) {

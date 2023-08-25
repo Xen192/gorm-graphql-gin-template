@@ -27,6 +27,22 @@ var DisplayableMime = []string{
 
 func Pointer[T any](val T) *T { return &val }
 
+func PointerArrayToValueArray[T any](arr []*T) []T {
+	out := make([]T, len(arr))
+	for i, a := range arr {
+		out[i] = *a
+	}
+	return out
+}
+
+func ValueArrayToPointerArray[T any](arr []T) []*T {
+	out := make([]*T, len(arr))
+	for i, a := range arr {
+		out[i] = Pointer(a)
+	}
+	return out
+}
+
 func SafeDereference[T any](val *T) T {
 	if val == nil {
 		return *new(T)
@@ -89,13 +105,6 @@ func JSONArrayUnMarshal[T any](data []byte) []*T {
 		return []*T{}
 	}
 	return out
-}
-
-func PointerArrayToValueArray[T any](data []*T) (out []T) {
-	for _, dat := range data {
-		out = append(out, *dat)
-	}
-	return
 }
 
 func GetENV(key string, defaultValue string) string {

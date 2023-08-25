@@ -1,7 +1,9 @@
 CREATE TABLE IF NOT EXISTS clerk_users (
   id VARCHAR(128) PRIMARY KEY NOT NULL,
-  linked_identity TEXT
+  linked_identity TEXT NOT NULL
 );
+
+CREATE TYPE user_state AS ENUM('active', 'inactive');
 
 CREATE TABLE IF NOT EXISTS users (
   id VARCHAR(128) PRIMARY KEY NOT NULL,
@@ -9,7 +11,7 @@ CREATE TABLE IF NOT EXISTS users (
   first_name TEXT,
   last_name TEXT,
   email TEXT,
-  status TEXT,
+  status user_state,
   profile_image_url TEXT
 );
 

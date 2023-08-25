@@ -4,6 +4,9 @@ serve:
 gen-graph:
 	go run github.com/99designs/gqlgen generate
 
+gen-model:
+	go run cmd/model/generate.go
+
 migrate:
 	go run cmd/migrate/main.go gen apply
 

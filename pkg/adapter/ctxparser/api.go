@@ -2,7 +2,7 @@ package ctxparser
 
 import (
 	"context"
-	"mygpt/models"
+	"mygpt/model"
 )
 
 type ContextKey string
@@ -11,6 +11,6 @@ const (
 	CTXUser ContextKey = "user"
 )
 
-func GetCTXUser(ctx context.Context) *models.User {
-	return ctx.Value(CTXUser).(*models.User)
+func GetCTXUser(ctx context.Context) *model.User {
+	return ctx.Value(CTXUser).(*model.User)
 }

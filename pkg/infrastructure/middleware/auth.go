@@ -2,10 +2,10 @@ package middleware
 
 import (
 	"context"
-	"mygpt/models"
 	"mygpt/pkg/adapter/ctxparser"
 	"mygpt/pkg/domain/auth"
 	"mygpt/pkg/infrastructure/datastore"
+	"mygpt/query"
 	"net/http"
 	"strings"
 
@@ -22,12 +22,10 @@ func AuthMiddleware() gin.HandlerFunc {
 			return
 		}
 
-		db := datastore.GetInstance()
-		u := models.ClerkUser{ID: claims.Subject}
-		res := db.First(&u)
-		if res.Error != nil {
-			if res.Error == gorm.ErrRecordNotFound {
-				err := auth.SeedUser(&u)
+		u, err := query.ClerkUser.WithContext(c.Request.Context()).Where(query.ClerkUser.ID.Eq(claims.Subject)).First()
+		if err != nil {
+			if err == gorm.ErrRecordNotFound {
+				err := auth.SeedUser(u)
 				if err != nil {
 					logrus.Error(err)
 					c.AbortWithStatusJSON(http.StatusInternalServerError, "Failed Creating User")
@@ -38,15 +36,14 @@ func AuthMiddleware() gin.HandlerFunc {
 			}
 		}
 
-		user := models.User{Email: &u.LinkedIdentity}
-		res = db.Where(&user).Find(&user)
-		if res.Error != nil {
+		user, err := query.User.WithContext(c.Request.Context()).Where(query.User.Email.Eq(u.LinkedIdentity)).First()
+		if err != nil {
 			logrus.Error(err)
 			c.AbortWithStatusJSON(http.StatusInternalServerError, "Failed Getting User")
 			return
 		}
 
-		c.Request = c.Request.WithContext(context.WithValue(c.Request.Context(), ctxparser.CTXUser, &user))
+		c.Request = c.Request.WithContext(context.WithValue(c.Request.Context(), ctxparser.CTXUser, user))
 		c.Next()
 	}
 }

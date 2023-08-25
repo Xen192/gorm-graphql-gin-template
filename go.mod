@@ -12,7 +12,9 @@ require (
 	github.com/oklog/ulid/v2 v2.1.0
 	github.com/sirupsen/logrus v1.9.0
 	github.com/vektah/gqlparser/v2 v2.5.1
-	gorm.io/gorm v1.25.0
+	gorm.io/gen v0.3.23
+	gorm.io/gorm v1.25.2
+	gorm.io/plugin/dbresolver v1.4.7
 )
 
 require (
@@ -23,6 +25,7 @@ require (
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.11.2 // indirect
+	github.com/go-sql-driver/mysql v1.7.0 // indirect
 	github.com/goccy/go-json v0.10.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a // indirect
@@ -42,6 +45,9 @@ require (
 	golang.org/x/net v0.9.0 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
+	gorm.io/datatypes v1.1.1-0.20230130040222-c43177d3cf8c // indirect
+	gorm.io/driver/mysql v1.5.1-0.20230509030346-3715c134c25b // indirect
+	gorm.io/hints v1.1.0 // indirect
 )
 
 require (
